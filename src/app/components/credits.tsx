@@ -59,7 +59,7 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, closeModal }) => {
         </li>
       </ul>
       <h2>Propriété intellectuelle</h2>
-      <p>Tous les textes et photos sont la propriété intellectuelle de Ces'eat.</p>
+      <p>Tous les textes et photos sont la propriété intellectuelle de Ces&apos;eat.</p>
       <h2>Hébergement du site</h2>
       <p>
         Le présent site est hébergé chez <span className="bold">ALWAYSDATA, SARL</span> dont le siège social est situé
