@@ -42,12 +42,12 @@ export default function Footer() {
 
 
             <div className="flex bg-darkGreen py-2">
-                <div className="flex-1">&copy;CES&apos;EAT - 2024</div>
+                <div className="flex-1 ml-2">&copy;CES&apos;EAT - 2024</div>
                 <div>
                 <a
                     title="Consulter les mentions légales"
                     onClick={openModal}
-                    className="cursor-pointer text-blue-500"
+                    className="cursor-pointer text-blue-500 mr-2"
                 >
                     <span>Mentions l&eacute;gales</span>
                 </a>
