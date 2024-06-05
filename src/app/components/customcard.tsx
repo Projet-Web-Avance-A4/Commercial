@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@nextui-org/button";
 import { NextUIProvider } from "@nextui-org/react";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
@@ -15,7 +13,6 @@ interface iCustomCard {
   icon?: ReactNode
 }
 
-// Composant Card
 export default function CustomCard(props: iCustomCard) {
 
     return (

@@ -26,9 +26,11 @@ import { capitalize } from "../utils/capitalize";
 import ThemeSwitch from "../components/ThemeSwitch";
 
 interface Table {
-    showStatusAction?: boolean
-    showDeleteAction?: boolean
-    showEditAction?: boolean
+    showAction?: boolean
+    showStatusAction: boolean
+    showCreateAction: boolean
+    showDeleteAction: boolean
+    showEditAction: boolean
 }
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
@@ -100,6 +102,12 @@ export default function App(props: Table) {
         const cellValue = user[columnKey as keyof User];
 
         switch (columnKey) {
+            case "id":
+                return (
+                    <div className="flex flex-col">
+                        <p className="text-bold text-small capitalize text-black">{cellValue}</p>
+                    </div>
+                );
             case "name":
                 return (
                     <User
@@ -117,7 +125,12 @@ export default function App(props: Table) {
                 return (
                     <div className="flex flex-col">
                         <p className="text-bold text-small capitalize text-black">{cellValue}</p>
-                        <p className="text-bold text-tiny capitalize text-default-500">{user.team}</p>
+                    </div>
+                );
+                case "email":
+                return (
+                    <div className="flex flex-col">
+                        <p className="text-bold text-small capitalize text-black">{cellValue}</p>
                     </div>
                 );
             case "status":
@@ -195,7 +208,7 @@ export default function App(props: Table) {
                         onClear={() => setFilterValue("")}
                         onValueChange={onSearchChange}
                     />
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 mx-2">
                         <Dropdown>
                             <DropdownTrigger className="hidden sm:flex">
                                 <Button
@@ -246,13 +259,15 @@ export default function App(props: Table) {
                                 ))}
                             </DropdownMenu>
                         </Dropdown>
-                        <Button
-                            className="bg-foreground text-background"
-                            endContent={<FaPlus />}
-                            size="sm"
-                        >
-                            Ajouter
-                        </Button>
+                        {props.showCreateAction &&
+                            <Button
+                                className="bg-foreground text-background"
+                                endContent={<FaPlus />}
+                                size="sm"
+                            >
+                                Ajouter
+                            </Button>
+                        }
                     </div>
                 </div>
                 <div className="flex justify-between items-center">

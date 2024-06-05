@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
     Navbar,
@@ -9,26 +9,60 @@ import {
 import { Button } from "@nextui-org/button";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/react";
 import Link from "next/link";
+import React, { useState } from 'react';
+import DeleteUserModal from "./deleteUserModal";
+import Image from 'next/image';
+import ceseat from "../../../public/logo-ceseat.png";
 
-interface Header {
-    title: string
-    showMyAccount?: boolean
-    showStats?: boolean
-    showSponsor?: boolean
+interface User {
+    name: string;
+    surname: string;
+    street: string;
+    city: string;
+    postal_code: string;
+    phone: string;
+    mail: string;
+    role: string;
 }
 
-// Composant Header (entête)
+interface Header {
+    user?: User | null;
+    title?: string;
+    showMyAccount?: boolean;
+    showStats?: boolean;
+    showSponsor?: boolean;
+}
+
 export default function Header(props: Header) {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    function openModal() {
+        setIsModalOpen(true);
+    }
+
+    function closeModal() {
+        setIsModalOpen(false);
+    }
+
     return (
         <Navbar className="bg-red">
             <NavbarBrand>
-                <Link href={"/"}><p className="font-bold text-inherit">CES&apos;Eat</p></Link>
+                <Link href={"/main"}><p className="font-bold text-inherit ml-2 text-large flex items-center gap-2">
+                    <Image
+                        src={ceseat}
+                        width={50}
+                        height={50}
+                        alt="Logo Ceseat"
+                    />
+                    CES&apos;Eat</p>
+                </Link>
             </NavbarBrand>
             <NavbarContent justify="center">
-                <p>{props.title}</p>
+                <p>{props.user?.role || props.title}</p>
             </NavbarContent>
             <NavbarContent justify="end">
-                {props.showStats &&
+                {props.showStats && props.user?.role == 'Restaurateur' &&
                     <NavbarItem className="hidden lg:flex">
                         <Link href="#">Statistiques</Link>
                     </NavbarItem>
@@ -67,6 +101,7 @@ export default function Header(props: Header) {
                                         className="text-danger"
                                         color="danger"
                                         description="Supprimer définitivement mon compte"
+                                        onClick={() => openModal()}
                                     >
                                         Effacer mon compte
                                     </DropdownItem>
@@ -76,6 +111,7 @@ export default function Header(props: Header) {
                     }
                 </NavbarItem>
             </NavbarContent>
+            <DeleteUserModal userMail={props.user?.mail} isOpen={isModalOpen} closeModal={closeModal} />
         </Navbar>
     );
 }

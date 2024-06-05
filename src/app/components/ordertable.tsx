@@ -28,6 +28,7 @@ import ThemeSwitch from "../components/ThemeSwitch";
 interface Table {
     showAction?: boolean
     showStatusAction?: boolean
+    showCreateAction: boolean
     showDeleteAction?: boolean
     showEditAction?: boolean
 }
@@ -102,6 +103,12 @@ export default function App(props: Table) {
         const cellValue = user[columnKey as keyof User];
 
         switch (columnKey) {
+            case "idOrder":
+                return (
+                    <div className="flex flex-col">
+                        <p className="text-bold text-small capitalize text-black">{cellValue}</p>
+                    </div>
+                );
             case "codeOrder":
                 return (
                     <User
@@ -109,7 +116,6 @@ export default function App(props: Table) {
                             description: "text-default-500",
                             name: "text-black"
                         }}
-                        description={user.codeOrder}
                         name={cellValue}
                     >
                         {user.codeOrder}
