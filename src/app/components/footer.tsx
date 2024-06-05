@@ -5,7 +5,7 @@ import LegalModal from '../components/credits';
 
 
 
-// Composant Header (entête)
+// Composant Footer
 export default function Footer() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -20,7 +20,7 @@ export default function Footer() {
     return (
         <div className="text-black">
             <div className="grid bg-lightGreen py-4">
-                <div className="grid flex justify-items-center">
+                <div className="grid justify-items-center">
                     <p className="font-bold">Contact</p>
                     <p>Vous souhaitez en savoir plus ou nous rencontrer ?</p>
                     <p> N&apos;h&#233;sitez pas &#224; nous contacter&nbsp;!</p>
