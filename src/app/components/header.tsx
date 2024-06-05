@@ -9,6 +9,8 @@ import {
 import { Button } from "@nextui-org/button";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/react";
 import Link from "next/link";
+import Image from 'next/image'
+import ceseat from "../images/logo-ceseat.png";
 
 interface Header {
     title: string
@@ -22,7 +24,14 @@ export default function Header(props: Header) {
     return (
         <Navbar className="bg-red">
             <NavbarBrand>
-                <Link href={"/"}><p className="font-bold text-inherit">CES&apos;Eat</p></Link>
+                <Link href={"/"}><p className="font-bold text-inherit ml-2 text-large flex items-center gap-2">
+                <Image
+            src={ceseat}
+            width={50}
+            height={50}
+            alt="Logo Ceseat"
+            />
+            CES&apos;Eat</p></Link>
             </NavbarBrand>
             <NavbarContent justify="center">
                 <p>{props.title}</p>
