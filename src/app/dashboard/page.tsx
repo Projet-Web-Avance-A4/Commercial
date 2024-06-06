@@ -27,8 +27,8 @@ export default function Home() {
   return (
     <NextUIProvider className=" flex flex-col min-h-screen bg-beige">
       <Header title="Service Commercial" showMyAccount={true} showStats={false} showSponsor={true}/>
-      <div className="flex-grow my-2">
-        <Counter/>
+      <div className="flex-grow my-5">
+        <Counter totalOrderPrice={71}/>
         <OrderTable showAction={false} showStatusAction={true} showCreateAction={false} showEditAction={false} showDeleteAction={false}/>
       </div>
       <Footer/>
