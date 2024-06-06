@@ -30,8 +30,8 @@ export default function Home() {
             },
         });
         const data = await response.json();
+        console.log(data)
         setOrdersList(data);
-        console.log(ordersList)
         }
 
         catch(err) {
@@ -40,6 +40,14 @@ export default function Home() {
       }
         fetchOrders();
     }, []);
+
+    // Calculer la somme des prix des commandes sauf celles en statut "delivered"
+  const totalOrderPrice = ordersList.reduce((total, order) => {
+    if (order.order_status !== "delivered") {
+      total += order.price;
+    }
+    return total;
+  }, 0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,23 +63,22 @@ export default function Home() {
     <NextUIProvider className=" flex flex-col min-h-screen bg-beige">
       <Header title="Service Commercial" showMyAccount={true} showStats={false} showSponsor={true}/>
       
-      <div className="text-black">
-      {ordersList? (
+{/*       <div className="text-black">
+      {ordersList ? (
         ordersList.map((order) => (
-          <div key={order.order_id}>
-            {/* Ajoutez d'autres champs si nécessaire */}
+          <div key={order.order_id}>{order.customer.address.city}
           </div>
         ))
       ) : (
         <div>No users found</div>
       )}
-    </div>
+    </div> */}
 
-    {/*   <div className="flex-grow my-5">
-        <Counter/>
+    <div className="flex-grow my-5">
+        <Counter totalOrderPrice={totalOrderPrice}/>
         <OrderTable showAction={false} showStatusAction={true} showCreateAction={false} showEditAction={false} showDeleteAction={false}/>
       </div>
-      <Footer/> */}
+      <Footer/>
     </NextUIProvider>
   );
 }
