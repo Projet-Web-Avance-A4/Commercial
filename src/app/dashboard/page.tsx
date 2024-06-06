@@ -3,7 +3,6 @@
 
 import { NextUIProvider } from "@nextui-org/system";
 import Header from "../components/header";
-import OrderTable from "../components/ordertable";
 import Counter from '../components/counter';
 import Footer from "../components/footer";
 import CustomCard from "../components/customcard";
@@ -29,7 +28,6 @@ export default function Home() {
       <Header title="Service Commercial" showMyAccount={true} showStats={false} showSponsor={true}/>
       <div className="flex-grow my-5">
         <Counter totalOrderPrice={71}/>
-        <OrderTable showAction={false} showStatusAction={true} showCreateAction={false} showEditAction={false} showDeleteAction={false}/>
       </div>
       <Footer/>
     </NextUIProvider>
