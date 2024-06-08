@@ -30,7 +30,6 @@ interface Header {
     title?: string;
     showMyAccount?: boolean;
     showStats?: boolean;
-    showSponsor?: boolean;
 }
 
 export default function Header(props: Header) {
@@ -55,7 +54,7 @@ export default function Header(props: Header) {
                         height={50}
                         alt="Logo Ceseat"
                     />
-                    CES&apos;Eat</p>
+                     <span className="hidden md:block">CES&apos;Eat</span></p>
                 </Link>
             </NavbarBrand>
             <NavbarContent justify="center">

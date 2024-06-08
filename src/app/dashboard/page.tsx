@@ -61,20 +61,8 @@ export default function Home() {
 
   return (
     <NextUIProvider className=" flex flex-col min-h-screen bg-beige">
-      <Header title="Service Commercial" showMyAccount={true} showStats={false} showSponsor={true}/>
-      
-{/*       <div className="text-black">
-      {ordersList ? (
-        ordersList.map((order) => (
-          <div key={order.order_id}>{order.customer.address.city}
-          </div>
-        ))
-      ) : (
-        <div>No users found</div>
-      )}
-    </div> */}
-
-    <div className="flex-grow my-5">
+      <Header title="Service Commercial" showMyAccount={false} showStats={false}/>
+      <div className="flex-grow my-5">
         <Counter totalOrderPrice={totalOrderPrice}/>
         <OrderTable showAction={false} showStatusAction={true} showCreateAction={false} showEditAction={false} showDeleteAction={false}/>
       </div>
