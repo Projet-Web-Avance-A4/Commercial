@@ -20,7 +20,7 @@ export default function CustomCard(props: iCustomCard) {
             <Card className="m-8 h-46">
               <CardHeader className="pb-0 pt-2 px-4 flex-col items-start h-30">
                 <div>
-                <h4 className="font-bold text-3xl flex items-center gap-2 h-24">{props.icon}{props.title}</h4>
+                <h4 className="font-bold text-lg xl:text-3xl flex items-center gap-2 h-24">{props.icon}{props.title}</h4>
                 <p className="text-default-500">{props.description}</p>
                 </div>
               </CardHeader>
