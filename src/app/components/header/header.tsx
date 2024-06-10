@@ -9,41 +9,17 @@ import {
 import { Button } from "@nextui-org/button";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/react";
 import Link from "next/link";
-import React, { useState } from 'react';
-import DeleteUserModal from "./deleteUserModal";
+import React from 'react';
+import DeleteUserModal from "../deleteUserModal/deleteUserModal";
 import Image from 'next/image';
-import ceseat from "../../../public/logo-ceseat.png";
+import ceseat from "../../../../public/images/logo-ceseat.png";
+import { iHeader } from "@/app/interfaces/header";
+import { useModal } from './utils';
 
-interface User {
-    name: string;
-    surname: string;
-    street: string;
-    city: string;
-    postal_code: string;
-    phone: string;
-    mail: string;
-    role: string;
-}
+export default function Header(props: iHeader) {
 
-interface Header {
-    user?: User | null;
-    title?: string;
-    showMyAccount?: boolean;
-    showStats?: boolean;
-    showSponsor?: boolean;
-}
+    const { isModalOpen, openModal, closeModal } = useModal();
 
-export default function Header(props: Header) {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    function openModal() {
-        setIsModalOpen(true);
-    }
-
-    function closeModal() {
-        setIsModalOpen(false);
-    }
 
     return (
         <Navbar className="bg-red">
@@ -55,7 +31,7 @@ export default function Header(props: Header) {
                         height={50}
                         alt="Logo Ceseat"
                     />
-                    CES&apos;Eat</p>
+                     <span className="hidden md:block">CES&apos;Eat</span></p>
                 </Link>
             </NavbarBrand>
             <NavbarContent justify="center">
