@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert } from '@mui/material';
 import { Input, Spacer, Button, Card, CardHeader, CardBody, Tooltip } from '@nextui-org/react';
-import { EyeFilledIcon } from "../../../public/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../../../public/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "../../../../public/icons/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "../../../../public/icons/EyeSlashFilledIcon";
 import { FaUserPlus, FaReply } from "react-icons/fa6";
 import { NextUIProvider } from '@nextui-org/system';
+import { generate, toggleVisibility, useFormValidation, handleSubmit } from './utils';
 
 const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
     const [name, setName] = useState('');
@@ -25,53 +26,14 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isDisabled, setIsDisabled] = useState(true);
     const [isVisible, setIsVisible] = React.useState(false);
-    const toggleVisibility = () => setIsVisible(!isVisible);
 
-    function generate(digits: number): number {
-        const min = Math.pow(10, digits - 1);
-        const max = Math.pow(10, digits) - 1;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    useFormValidation([name, surname, mail, phone, street, city, postalCode, password], setIsDisabled);
 
-    useEffect(() => {
-        const isFormValid = name && surname && mail && phone && street && city && postalCode && password;
-        setIsDisabled(!isFormValid);
-    }, [name, surname, mail, phone, street, city, postalCode, password]);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const response = await fetch('http://localhost:3001/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                surname,
-                mail,
-                phone,
-                street,
-                city,
-                postalCode,
-                password,
-                role,
-                status,
-                code_referral,
-                id_sponsor
-            })
-        });
-
-        if (response.status >= 200 && response.status < 300) {
-            setAlertMessage('Création du compte réussie');
-            setAlertType('success');
-            setTimeout(() => {
-                props.changeForm();
-            }, 1000);
-
-        } else {
-            setAlertMessage('Échec de la création du compte');
-            setAlertType('error');
-        }
+    const onSubmit = (e: React.FormEvent) => {
+        handleSubmit(e, {
+            name, surname, mail, phone, street, city, postalCode, password,
+            role, status, code_referral, id_sponsor
+        }, setAlertMessage, setAlertType, props.changeForm);
     };
 
     return (
@@ -92,7 +54,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                         </div>
                     </CardHeader>
                     <CardBody>
-                        <form onSubmit={handleSubmit} className="grid grid-flow-row-dense auto-cols-max grid-cols-6 gap-5 p-3">
+                        <form onSubmit={onSubmit} className="grid grid-flow-row-dense auto-cols-max grid-cols-6 gap-5 p-3">
                             <div className='col-span-3'>
                                 <Input
                                     className='text-black'
@@ -180,7 +142,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                     size="md"
                                     type={isVisible ? "text" : "password"}
                                     endContent={
-                                        <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                                        <button className="focus:outline-none" type="button" onClick={() => toggleVisibility(isVisible, setIsVisible)}>
                                             {isVisible ? (
                                                 <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                                             ) : (

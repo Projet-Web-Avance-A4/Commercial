@@ -2,12 +2,9 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/system";
-import Header from "../components/header";
-import Table from "../components/table";
-import Footer from "../components/footer";
-import CustomCard from "../components/customcard";
-import PortalCard from "../components/portalCard";
-import Notification from "../components/notification";
+import Header from "../components/header/header";
+import Table from "../components/table/table";
+import Footer from "../components/footer/footer";
 import { useState } from 'react';
 import { FaUserLarge , FaChartColumn } from 'react-icons/fa6';
 
