@@ -22,8 +22,7 @@ import {
 } from "@nextui-org/react";
 import { FaPlus, FaCircleDot, FaChevronDown, FaMagnifyingGlass, FaRegTrashCan, FaPencil } from "react-icons/fa6"
 import { columns, orders, statusOptions } from "../api/order.data";
-import { capitalize } from "../utils/capitalize";
-import ThemeSwitch from "../components/ThemeSwitch";
+import { capitalize } from "./table/utils";
 
 interface Table {
     showAction?: boolean
