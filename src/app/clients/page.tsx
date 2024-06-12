@@ -1,12 +1,11 @@
-
 "use client";
 
 import { NextUIProvider } from "@nextui-org/system";
 import Header from "../components/header/header";
 import Table from "../components/table/table";
 import Footer from "../components/footer/footer";
+import NotificationNewUser from '../components/newUser/newUser';
 import { useState } from 'react';
-import { FaUserLarge , FaChartColumn } from 'react-icons/fa6';
 
 export default function Home() {
 
@@ -26,6 +25,7 @@ export default function Home() {
       <div className="flex-grow my-5 mx-2">
         <Table showStatusAction={true} showCreateAction={false} showEditAction={true} showDeleteAction={true}/>
       </div>
+      <NotificationNewUser />
       <Footer/>
     </NextUIProvider>
   );

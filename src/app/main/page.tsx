@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import NouveauxUtilisateurs from '../components/newUser/newUser';
+import NotificationNewUser from '../components/newUser/newUser';
 import { NextUIProvider } from "@nextui-org/system";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
@@ -22,7 +22,7 @@ export default function Home() {
           <CustomCard title="Dashboard" href="/dashboard" btnText="Accéder" icon={<FaChartColumn className="w-24 h-24" />} />
         </div>
       </div>
-      <NouveauxUtilisateurs />
+      <NotificationNewUser />
       <Footer />
     </NextUIProvider>
   );

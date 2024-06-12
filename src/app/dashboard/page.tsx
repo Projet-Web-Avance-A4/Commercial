@@ -5,6 +5,7 @@ import { NextUIProvider } from "@nextui-org/system";
 import Header from "../components/header/header";
 import Counter from '../components/counter/counter';
 import Footer from "../components/footer/footer";
+import NotificationNewUser from '../components/newUser/newUser';
 import { useState } from 'react';
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
       <div className="flex-grow my-5">
         <Counter totalOrderPrice={71}/>
       </div>
+      <NotificationNewUser />
       <Footer/>
     </NextUIProvider>
   );

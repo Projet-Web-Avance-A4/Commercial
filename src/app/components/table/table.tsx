@@ -21,7 +21,7 @@ import {
     Tooltip
 } from "@nextui-org/react";
 import { FaPlus, FaCircleDot, FaChevronDown, FaMagnifyingGlass, FaRegTrashCan, FaPencil } from "react-icons/fa6"
-import { columns, users, statusOptions } from "../../api/temp.data.js";
+import { columns, users, statusOptions } from "../../api/user.data.js";
 import { capitalize } from "./utils";
 import ThemeSwitch from "../themeSwitch/themeSwitch";
 
