@@ -1,11 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Button, Input } from '@nextui-org/react';
 import { Fragment } from 'react';
-import { usePassword, handleDeleteAccount } from './utils';
+import { UsePassword, handleDeleteAccount } from './utils';
 import { deleteUserModalProps } from '@/app/interfaces/user';
 
 const deleteUserModal: React.FC<deleteUserModalProps> = ({ isOpen, closeModal, userMail }) => {
-    const { password, setPassword } = usePassword();
+    const { password, setPassword } = UsePassword();
 
     const onDeleteAccount = () => handleDeleteAccount(userMail, password);
 
