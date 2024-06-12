@@ -1,19 +1,32 @@
 import { useState } from 'react';
 
 export const useModal = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isSponsorModalOpen, setIsSponsorModalOpen] = useState(false);
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
+    function openDeleteModal() {
+        setIsDeleteModalOpen(true);
+    }
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    function closeDeleteModal() {
+        setIsDeleteModalOpen(false);
+    }
+
+    function openSponsorModal() {
+        setIsSponsorModalOpen(true);
+    }
+
+    function closeSponsorModal() {
+        setIsSponsorModalOpen(false);
+    }
 
     return {
-        isModalOpen,
-        openModal,
-        closeModal,
+        isDeleteModalOpen,
+        isSponsorModalOpen,
+        openDeleteModal,
+        closeDeleteModal,
+        openSponsorModal,
+        closeSponsorModal,
+
     };
 };

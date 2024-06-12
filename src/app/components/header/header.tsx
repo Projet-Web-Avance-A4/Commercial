@@ -15,10 +15,43 @@ import Image from 'next/image';
 import ceseat from "../../../../public/images/logo-ceseat.png";
 import { iHeader } from "@/app/interfaces/header";
 import { useModal } from './utils';
+import SponsorModal from "../sponsor/sponsor";
+import { useEffect, useState } from 'react';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { User } from "@/app/interfaces/user";
 
 export default function Header(props: iHeader) {
 
-    const { isModalOpen, openModal, closeModal } = useModal();
+    const {  isDeleteModalOpen,
+        isSponsorModalOpen,
+        openDeleteModal,
+        closeDeleteModal,
+        openSponsorModal,
+        closeSponsorModal } = useModal();
+
+        const [user, setUser] = useState<User | null>(null);
+
+        useEffect(() => {
+            const accessToken = localStorage.getItem('accessToken');
+            if (accessToken) {
+                const decodedToken = jwt.decode(accessToken);
+                if (decodedToken && typeof decodedToken !== 'string') {
+                    const data: JwtPayload = decodedToken;
+                    const userData: User = {
+                        name: data.name ?? '',
+                        surname: data.surname ?? '',
+                        street: data.street ?? '',
+                        city: data.city ?? '',
+                        postal_code: data.postal_code ?? '',
+                        phone: data.phone ?? '',
+                        mail: data.mail ?? '',
+                        role: data.role ?? '',
+                        code_referral: data.code_referral ?? '',
+                    };
+                    setUser(userData);
+                }
+            }
+        }, []);
 
 
     return (
@@ -64,9 +97,9 @@ export default function Header(props: iHeader) {
                                         Mon compte
                                     </DropdownItem>
                                     <DropdownItem
-                                        key="sponsor"
-                                        description="Parrainer un ami"
-                                        href="/sponsor"
+                                         key="sponsor"
+                                         onClick={openSponsorModal}
+                                         className="cursor-pointer text-blue-500 mr-2"
                                     >
                                         Parrainage
                                     </DropdownItem>
@@ -77,9 +110,9 @@ export default function Header(props: iHeader) {
                                         className="text-danger"
                                         color="danger"
                                         description="Supprimer définitivement mon compte"
-                                        onClick={() => openModal()}
+                                        onClick={() => openDeleteModal()}
                                     >
-                                        Effacer mon compte
+                                        Effacer mon compte 
                                     </DropdownItem>
                                 </DropdownSection>
                             </DropdownMenu>
@@ -87,7 +120,8 @@ export default function Header(props: iHeader) {
                     }
                 </NavbarItem>
             </NavbarContent>
-            <DeleteUserModal userMail={props.user?.mail} isOpen={isModalOpen} closeModal={closeModal} />
+            <DeleteUserModal userMail={props.user?.mail} isOpen={isDeleteModalOpen} closeModal={closeDeleteModal} />
+            <SponsorModal isOpen={isSponsorModalOpen} closeModal={closeSponsorModal} code={user?.code_referral}/>
         </Navbar>
     );
 }
