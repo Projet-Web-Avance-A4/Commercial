@@ -18,7 +18,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [password, setPassword] = useState('');
-    const role = "Développeur";
+    const role = "Commercial";
     const status = "Active";
     const code_referral = "REF" + generate(10);
     const [id_sponsor, setIdSponsor] = useState('');
