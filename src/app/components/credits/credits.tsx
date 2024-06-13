@@ -1,19 +1,12 @@
-// components/LegalModal.tsx
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-
-interface LegalModalProps {
-  isOpen: boolean;
-  closeModal: () => void;
-}
+import { LegalModalProps } from '@/app/interfaces/footer';
 
 const LegalModal: React.FC<LegalModalProps> = ({ isOpen, closeModal }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={closeModal}>
         <div className="min-h-screen px-4 text-center">
-    
-          {/* This element is to trick the browser into centering the modal contents. */}
           <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>

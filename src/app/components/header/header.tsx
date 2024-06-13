@@ -9,41 +9,50 @@ import {
 import { Button } from "@nextui-org/button";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/react";
 import Link from "next/link";
-import React, { useState } from 'react';
-import DeleteUserModal from "./deleteUserModal";
+import React from 'react';
+import DeleteUserModal from "../deleteUserModal/deleteUserModal";
 import Image from 'next/image';
-import ceseat from "../../../public/logo-ceseat.png";
+import ceseat from "../../../../public/images/logo-ceseat.png";
+import { iHeader } from "@/app/interfaces/header";
+import { useModal } from './utils';
+import SponsorModal from "../sponsor/sponsor";
+import { useEffect, useState } from 'react';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { User } from "@/app/interfaces/user";
 
-interface User {
-    name: string;
-    surname: string;
-    street: string;
-    city: string;
-    postal_code: string;
-    phone: string;
-    mail: string;
-    role: string;
-}
+export default function Header(props: iHeader) {
 
-interface Header {
-    user?: User | null;
-    title?: string;
-    showMyAccount?: boolean;
-    showStats?: boolean;
-    showSponsor?: boolean;
-}
+    const {  isDeleteModalOpen,
+        isSponsorModalOpen,
+        openDeleteModal,
+        closeDeleteModal,
+        openSponsorModal,
+        closeSponsorModal } = useModal();
 
-export default function Header(props: Header) {
+        const [user, setUser] = useState<User | null>(null);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+        useEffect(() => {
+            const accessToken = localStorage.getItem('accessToken');
+            if (accessToken) {
+                const decodedToken = jwt.decode(accessToken);
+                if (decodedToken && typeof decodedToken !== 'string') {
+                    const data: JwtPayload = decodedToken;
+                    const userData: User = {
+                        name: data.name ?? '',
+                        surname: data.surname ?? '',
+                        street: data.street ?? '',
+                        city: data.city ?? '',
+                        postal_code: data.postal_code ?? '',
+                        phone: data.phone ?? '',
+                        mail: data.mail ?? '',
+                        role: data.role ?? '',
+                        code_referral: data.code_referral ?? '',
+                    };
+                    setUser(userData);
+                }
+            }
+        }, []);
 
-    function openModal() {
-        setIsModalOpen(true);
-    }
-
-    function closeModal() {
-        setIsModalOpen(false);
-    }
 
     return (
         <Navbar className="bg-red">
@@ -55,7 +64,7 @@ export default function Header(props: Header) {
                         height={50}
                         alt="Logo Ceseat"
                     />
-                    CES&apos;Eat</p>
+                     <span className="hidden md:block">CES&apos;Eat</span></p>
                 </Link>
             </NavbarBrand>
             <NavbarContent justify="center">
@@ -88,9 +97,9 @@ export default function Header(props: Header) {
                                         Mon compte
                                     </DropdownItem>
                                     <DropdownItem
-                                        key="sponsor"
-                                        description="Parrainer un ami"
-                                        href="/sponsor"
+                                         key="sponsor"
+                                         onClick={openSponsorModal}
+                                         className="cursor-pointer text-blue-500 mr-2"
                                     >
                                         Parrainage
                                     </DropdownItem>
@@ -101,9 +110,9 @@ export default function Header(props: Header) {
                                         className="text-danger"
                                         color="danger"
                                         description="Supprimer définitivement mon compte"
-                                        onClick={() => openModal()}
+                                        onClick={() => openDeleteModal()}
                                     >
-                                        Effacer mon compte
+                                        Effacer mon compte 
                                     </DropdownItem>
                                 </DropdownSection>
                             </DropdownMenu>
@@ -111,7 +120,8 @@ export default function Header(props: Header) {
                     }
                 </NavbarItem>
             </NavbarContent>
-            <DeleteUserModal userMail={props.user?.mail} isOpen={isModalOpen} closeModal={closeModal} />
+            <DeleteUserModal userMail={props.user?.mail} isOpen={isDeleteModalOpen} closeModal={closeDeleteModal} />
+            <SponsorModal isOpen={isSponsorModalOpen} closeModal={closeSponsorModal} code={user?.code_referral}/>
         </Navbar>
     );
 }
