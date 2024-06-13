@@ -3,6 +3,9 @@ import { FaPhone, FaEnvelope } from 'react-icons/fa6';
 import { useState } from 'react';
 import LegalModal from '../credits/credits';
 
+
+
+// Composant Footer
 export default function Footer() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
