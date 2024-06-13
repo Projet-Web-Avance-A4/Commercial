@@ -52,7 +52,7 @@ export default function Home() {
 
   return (
     <NextUIProvider className="flex flex-col min-h-screen bg-beige">
-      <Header title="Service Commercial" showMyAccount={false} showStats={false}/>
+      <Header title="Service Commercial" showMyAccount={true} showStats={false}/>
       <div className="grid grid-cols-4 flex-grow place-content-center items-center h-80">
         <div className="col-span-1"></div>
         <div>

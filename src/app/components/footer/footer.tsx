@@ -37,7 +37,7 @@ export default function Footer() {
             </div>
 
             <div className="flex bg-darkGreen py-1">
-                <div className="flex-1 ml-2">&copy;CES'EAT - 2024</div>
+                <div className="flex-1 ml-2">&copy;CES&apos;EAT - 2024</div>
                 <div>
                     <a
                         title="Consulter les mentions légales"

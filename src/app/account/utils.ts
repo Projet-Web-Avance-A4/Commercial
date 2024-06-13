@@ -32,7 +32,8 @@ export const verifyAndSetUser = (accessToken: string, setUser: (user: User) => v
                 postal_code: data.postal_code ?? '',
                 phone: data.phone ?? '',
                 mail: data.mail ?? '',
-                role: data.role ?? ''
+                role: data.role ?? '',
+                code_referral: data.code_referral ?? '',
             };
             setUser(userData);
         }
@@ -93,6 +94,7 @@ export const handleInputChange = (
             phone: '',
             mail: '',
             role: '',
+            code_referral: '',
             [name]: value
         });
     }
