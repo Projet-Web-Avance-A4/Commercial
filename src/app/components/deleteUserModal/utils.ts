@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const usePassword = () => {
+export const UsePassword = () => {
     const [password, setPassword] = useState('');
     return { password, setPassword };
 };
