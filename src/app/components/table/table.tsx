@@ -22,7 +22,7 @@ import { FaChevronDown, FaMagnifyingGlass, FaCheck } from "react-icons/fa6";
 import { propsTable } from "../../interfaces/table";
 /* import parse from "html-react-parser"; */
 
-export default function App(props: propsTable) {
+export default function CustomTable ({props, actionButtons} : {props: propsTable, actionButtons: any}) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([])
@@ -55,15 +55,6 @@ export default function App(props: propsTable) {
     let filteredOrders = [...props.items];
 
     if (hasSearchFilter) {
-      // filteredOrders = filteredOrders.filter(
-      //   (items) =>
-      //     items
-      //       .ville_client!.toLowerCase()
-      //       .includes(filterValue.toLowerCase()) ||
-      //     items
-      //       .ville_resto!.toLowerCase()
-      //       .includes(filterValue.toLowerCase())
-      // );
       filteredOrders = filteredOrders.filter(function (e) {
         return props.options.search_uid.some(function (a) {
           return e[a].toLowerCase().includes(filterValue.toLowerCase());
@@ -105,20 +96,15 @@ export default function App(props: propsTable) {
 
   const renderCell = React.useCallback(
     (items: Item, columnKey: string | number) => {
-      // const cellValue = items[columnKey as keyof Item];
 
       switch (columnKey) {
         case "actions":
           return (
-              /* parse(props.options.action_code, */
-                // {library: require("react-icons/fa6"), }
-            <div className="relative flex justify-end items-center gap-2">
-              <Tooltip className="text-black" content="Valider">
-                <Button isIconOnly radius="full" size="sm" variant="light">
-                  <FaCheck className="text-default-400 fill-green-500" />
-                </Button>
-              </Tooltip>
-            </div>
+            <div className="flex flex-row	justify-end">
+            {actionButtons.map((actionButton: any) => {
+              return actionButton()
+            })}
+          </div>
           );
         default:
           return (
@@ -235,7 +221,6 @@ export default function App(props: propsTable) {
             cursor: "bg-foreground text-background",
           }}
           color="default"
-          // isDisabled={hasSearchFilter}
           page={page}
           total={pages}
           variant="light"
@@ -270,11 +255,11 @@ export default function App(props: propsTable) {
       removeWrapper
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      // checkboxesProps={{
-      //     classNames: {
-      //         wrapper: 'after:bg-foreground after:text-background text-background',
-      //     },
-      // }}
+    checkboxesProps={{
+        classNames: {
+            wrapper: 'after:bg-foreground after:text-background text-background',
+            },
+    }}
       classNames={classNames}
       selectedKeys={selectedKeys}
       selectionMode={props.options.selection_mode}
