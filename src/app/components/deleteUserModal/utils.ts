@@ -10,7 +10,7 @@ export const handleDeleteAccount = async (
     password: string,
 ) => {
     try {
-        const response = await fetch('http://localhost:3001/api/auth/delete', {
+        const response = await fetch('http://localhost:4000/auth/delete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
