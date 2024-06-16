@@ -129,6 +129,8 @@ const switchUserState = (item: any) => {
           throw new Error('Failed to update status');
         }
 
+        window.location.reload();
+
       } catch (error) {
         console.error('Error updating status:', error);
       }

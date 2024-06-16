@@ -19,6 +19,7 @@ const DeleteUserButton = (item: any) => {
       });
       if (response.ok) {
         console.error('User deleted');
+        window.location.reload();
       } else {
         console.error('Failed to delete user');
       }
