@@ -106,7 +106,7 @@ export const sendModifiedData = async (
     setUser: React.Dispatch<React.SetStateAction<User | null>>
 ) => {
     try {
-        const response = await fetch('http://localhost:3001/api/auth/update', {
+        const response = await fetch('http://localhost:4000/auth/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -145,7 +145,7 @@ export const sendModifiedPassword = async (
 ) => {
     if (newPassword === confirmPassword) {
         try {
-            const response = await fetch('http://localhost:3001/api/auth/update-password', {
+            const response = await fetch('http://localhost:4000/auth/update-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
