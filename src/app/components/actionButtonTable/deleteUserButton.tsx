@@ -4,6 +4,8 @@ import { FaTrashCan } from "react-icons/fa6";
 
 const DeleteUserButton = (item: any) => {
 
+  console.log(item);
+
   const itemId = item.id;
 
   const handleDelete = async () => {

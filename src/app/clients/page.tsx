@@ -26,8 +26,9 @@ export default function Home() {
           },
         });
         const data = await response.json();
-        setUsersList(data);
-        console.log(data);
+        const filteredUsers = data.filter((user: User) => user.status !== "Deleted");
+        setUsersList(filteredUsers);
+      /*   console.log(data); */
       } catch (err) {
         console.error(err);
       }

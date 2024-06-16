@@ -11,7 +11,6 @@ export default function editUserButton(item: any) {
 
 
   const goToAccountPage = () => {
-    console.log(item)
     const accountUrl = `/account/edit?id=${item.id}`;
     window.location.href = accountUrl;
   };
