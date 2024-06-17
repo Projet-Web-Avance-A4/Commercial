@@ -1,3 +1,3 @@
 export interface ThemeSwitchProps {
-    onChange?: (selected: boolean) => void;
+  onChange: (checked: boolean) => void;
   }

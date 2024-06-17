@@ -5,16 +5,19 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { FaPenToSquare } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
-function test() {
-    console.log("test button")
-}
+export default function editUserButton(item: any) {
 
-export default function deleteUserButton() {
+  const goToAccountPage = () => {
+    const accountUrl = `/account/edit?id=${item.id}`;
+    window.location.href = accountUrl;
+  };
+
   return (
     <NextUIProvider>
       <Tooltip className="text-black" content="Editer">
-        <Button isIconOnly radius="full" size="sm" variant="light" onClick={test}>
+        <Button isIconOnly radius="full" size="sm" variant="light" onClick={goToAccountPage} >
           <FaPenToSquare className="text-default-400 fill-amber-500" />
         </Button>
       </Tooltip>

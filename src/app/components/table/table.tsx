@@ -23,6 +23,7 @@ import { propsTable } from "../../interfaces/table";
 /* import parse from "html-react-parser"; */
 
 export default function CustomTable ({props, actionButtons} : {props: propsTable, actionButtons: any}) {
+
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([])
@@ -40,6 +41,7 @@ export default function CustomTable ({props, actionButtons} : {props: propsTable
   const [page, setPage] = React.useState(1);
 
   type Item = (typeof props.items)[0];
+  
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -102,7 +104,7 @@ export default function CustomTable ({props, actionButtons} : {props: propsTable
           return (
             <div className="flex flex-row	justify-end">
             {actionButtons.map((actionButton: any) => {
-              return actionButton()
+              return actionButton(items)
             })}
           </div>
           );
@@ -135,6 +137,7 @@ export default function CustomTable ({props, actionButtons} : {props: propsTable
   }, []);
 
   const topContent = React.useMemo(() => {
+
     return (
       <div className="flex flex-col gap-4">
         <div className="flex justify-between gap-3 items-end">
