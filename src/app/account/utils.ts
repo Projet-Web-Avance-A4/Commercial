@@ -32,7 +32,8 @@ export const verifyAndSetUser = (accessToken: string, setUser: (user: User) => v
                 postal_code: data.postal_code ?? '',
                 phone: data.phone ?? '',
                 mail: data.mail ?? '',
-                role: data.role ?? ''
+                role: data.role ?? '',
+                code_referral: data.code_referral ?? '',
             };
             setUser(userData);
         }
@@ -93,6 +94,7 @@ export const handleInputChange = (
             phone: '',
             mail: '',
             role: '',
+            code_referral: '',
             [name]: value
         });
     }
@@ -103,36 +105,60 @@ export const sendModifiedData = async (
     user: User | null,
     setUser: React.Dispatch<React.SetStateAction<User | null>>
 ) => {
-    try {
-        const response = await fetch('http://localhost:4000/auth/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: modifiedUser?.name,
-                surname: modifiedUser?.surname,
-                currentMail: user?.mail,
-                newMail: modifiedUser?.mail,
-                phone: modifiedUser?.phone,
-                street: modifiedUser?.street,
-                city: modifiedUser?.city,
-                postalCode: modifiedUser?.postal_code
-            })
-        });
-        if (!response.ok) {
-            throw new Error('Failed to modify data');
-        }
+    let activeAccessToken = localStorage.getItem('accessToken');
+    const activeRefreshToken = localStorage.getItem('refreshToken');
+    let index = 0;
+    let tokenStatus = '';
 
-        const { accessToken, refreshToken } = await response.json();
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        verifyAndSetUser(accessToken, setUser);
-    } catch (error) {
-        console.error('Failed to modify data:', error);
+    while (index < 10 && tokenStatus !== 'OK') {
+        try {
+            const response = await fetch('http://localhost:4000/auth/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${activeAccessToken}`
+                },
+                body: JSON.stringify({
+                    name: modifiedUser?.name,
+                    surname: modifiedUser?.surname,
+                    currentMail: user?.mail,
+                    newMail: modifiedUser?.mail,
+                    phone: modifiedUser?.phone,
+                    street: modifiedUser?.street,
+                    city: modifiedUser?.city,
+                    postalCode: modifiedUser?.postal_code
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                if (errorData.message === 'Token expirÃ©') {
+                    if (activeRefreshToken) {
+                        await generateNewAccessToken(activeRefreshToken);
+                        activeAccessToken = localStorage.getItem('accessToken');
+                        continue;
+                    }
+                } else {
+                    throw new Error(errorData.message);
+                }
+            }
+
+            const { accessToken, refreshToken, message } = await response.json();
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+            tokenStatus = message;
+            verifyAndSetUser(accessToken, setUser);
+            break;
+
+        } catch (error: any) {
+            tokenStatus = error.message;
+            index++;
+            if (index >= 10) {
+                console.error('Max retry limit reached:', error);
+            }
+        }
     }
 };
-
 export const sendModifiedPassword = async (
     user: User | null,
     oldPassword: string,
