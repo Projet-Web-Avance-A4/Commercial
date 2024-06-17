@@ -5,6 +5,7 @@ import Header from "../components/header/header";
 import Table from "../components/table/table";
 import Counter from '../components/counter/counter';
 import Footer from "../components/footer/footer";
+import NotificationNewUser from '../components/newUser/newUser';
 import { useState, useEffect } from 'react';
 import { Order } from '../types/order';
 import { Options } from "../interfaces/table";
@@ -116,7 +117,8 @@ export default function Home() {
           actionButtons={[]}
         />
       </div>
-      <Footer />
+      <NotificationNewUser />
+      <Footer/>
     </NextUIProvider>
   );
 }

@@ -4,6 +4,7 @@ import { NextUIProvider } from "@nextui-org/system";
 import Header from "../components/header/header";
 import Table from "../components/table/table";
 import Footer from "../components/footer/footer";
+import NotificationNewUser from '../components/newUser/newUser';
 import { useState, useEffect } from 'react';
 import { User } from '../types/user';
 import { Options } from "../interfaces/table";
@@ -91,6 +92,7 @@ export default function Home() {
           actionButtons={[switchUserState, editUserButton, deleteUserButton]}
         />
       </div>
+      <NotificationNewUser />
       <Footer/>
     </NextUIProvider>
   );
