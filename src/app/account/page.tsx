@@ -89,7 +89,7 @@ export default function AccountInfo() {
                             <CardBody>
                                 {user && (
                                     <div className="grid grid-flow-row-dense auto-cols-max grid-cols-2 gap-5 p-3">
-                                        {Object.keys(user).filter((key) => key !== 'role').map((field) => (
+                                        {Object.keys(user).filter((key) => key !== 'role' && key !== 'code_referral').map((field) => (
                                             <div key={field} className={field === 'mail' ? "col-span-2" : ""}>
                                                 {isEditing ? (
                                                     <Input

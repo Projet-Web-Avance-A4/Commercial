@@ -18,16 +18,14 @@ import Footer from "../../components/footer/footer";
 import { User, fieldLabels } from "../../interfaces/user";
 import {
   isUserDataValid,
-  handleTokenVerification,
   handleInputChange,
   sendModifiedData,
   sendModifiedPassword,
-} from "../utils";
+} from "./utils";
 
 export default function AccountInfo(user_id: any) {
 
   const  { id }  = user_id.searchParams;
-  console.log(user_id);
 
   const [user, setUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);
