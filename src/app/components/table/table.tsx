@@ -20,7 +20,6 @@ import {
 } from "@nextui-org/react";
 import { FaChevronDown, FaMagnifyingGlass, FaCheck } from "react-icons/fa6";
 import { propsTable } from "../../interfaces/table";
-/* import parse from "html-react-parser"; */
 
 export default function CustomTable ({props, actionButtons} : {props: propsTable, actionButtons: any}) {
 

@@ -9,9 +9,6 @@ import { useState, useEffect } from 'react';
 import { Order } from '../types/order';
 import { Options } from "../interfaces/table";
 import { propsTable } from "@/app/interfaces/table";
-import deleteUserButton from "../components/actionButtonTable/deleteUserButton";
-import editUserButton from "../components/actionButtonTable/editUserButton";
-import switchUserState from "../components/actionButtonTable/switchStateButton";
 
 export default function Home() {
   const [ordersList, setOrdersList] = useState<Order[]>([]);
@@ -28,7 +25,6 @@ export default function Home() {
           },
         });
         const data = await response.json();
-        console.log(data);
         const filteredOrders = data.filter((order: Order) => order.order_status !== "done");
         setOrdersList(filteredOrders);
       } catch (err) {

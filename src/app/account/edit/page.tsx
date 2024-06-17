@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, ChangeEvent } from "react";
-import { useRouter } from "next/router";
 import {
   NextUIProvider,
   Card,
@@ -54,7 +53,6 @@ export default function AccountInfo(user_id: any) {
         body: JSON.stringify({userId})
       });
       const data = await response.json();
-        console.log(data);
 
       setUser(data);
     } catch (err) {

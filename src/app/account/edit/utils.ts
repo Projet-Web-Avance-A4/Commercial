@@ -64,7 +64,6 @@ export const sendModifiedData = async (
     setUser: React.Dispatch<React.SetStateAction<User | null>>
 ) => {
     try {
-        console.log(modifiedUser);
         const response = await fetch('http://localhost:4000/client/updateClient', {
             method: 'POST',
             headers: {

@@ -5,7 +5,6 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { FaPenToSquare } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 
 export default function editUserButton(item: any) {
 

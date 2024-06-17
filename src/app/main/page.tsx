@@ -4,7 +4,6 @@ import { NextUIProvider } from "@nextui-org/system";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import CustomCard from "../components/customcard/customcard";
-import Notification from "../components/notification/notification";
 import { useState, useEffect } from 'react';
 import { FaUserLarge, FaChartColumn } from 'react-icons/fa6';
 

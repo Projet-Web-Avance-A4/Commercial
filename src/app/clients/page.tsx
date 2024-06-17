@@ -28,7 +28,6 @@ export default function Home() {
         const data = await response.json();
         const filteredUsers = data.filter((user: User) => user.status !== "Deleted");
         setUsersList(filteredUsers);
-      /*   console.log(data); */
       } catch (err) {
         console.error(err);
       }
