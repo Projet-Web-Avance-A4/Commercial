@@ -26,7 +26,8 @@ import {
 
 export default function AccountInfo(user_id: any) {
 
-  const  id  = "1";
+  const  { id }  = user_id.searchParams;
+  console.log(user_id);
 
   const [user, setUser] = useState<User | null>(null);
   const [isEditing, setIsEditing] = useState(false);

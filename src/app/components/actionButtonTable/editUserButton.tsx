@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function editUserButton(item: any) {
 
-
   const goToAccountPage = () => {
     const accountUrl = `/account/edit?id=${item.id}`;
     window.location.href = accountUrl;
