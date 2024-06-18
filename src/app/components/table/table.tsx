@@ -277,6 +277,7 @@ export default function CustomTable ({props, actionButtons} : {props: propsTable
             key={column.uid}
             align={column.uid === "actions" ? "center" : "start"}
             style={column.uid === "actions" ? { textAlign: "end" } : {}}
+            {...(column.sortable== true ? {allowsSorting : true} : {allowsSorting: false})}
           >
             {column.name}
           </TableColumn>
