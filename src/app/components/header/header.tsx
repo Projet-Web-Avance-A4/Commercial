@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import {
     Navbar,
     NavbarBrand,
@@ -9,16 +10,15 @@ import {
 import { Button } from "@nextui-org/button";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/react";
 import Link from "next/link";
-import React from 'react';
-import DeleteUserModal from "../deleteUserModal/deleteUserModal";
 import Image from 'next/image';
 import ceseat from "../../../../public/images/logo-ceseat.png";
-import { iHeader } from "@/app/interfaces/header";
+import DeleteUserModal from "../deleteUserModal/deleteUserModal";
 import { useModal } from './utils';
 import SponsorModal from "../sponsor/sponsor";
 import { useEffect, useState } from 'react';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { User } from "@/app/interfaces/user";
+import { iHeader } from "@/app/interfaces/header";
 
 export default function Header(props: iHeader) {
 
@@ -68,16 +68,10 @@ export default function Header(props: iHeader) {
                 </Link>
             </NavbarBrand>
             <NavbarContent justify="center">
-                <p>{props.user?.role || props.title}</p>
+                <p>{user?.role || "CES'Eat"}</p>
             </NavbarContent>
             <NavbarContent justify="end">
-                {props.showStats && props.user?.role == 'Restaurateur' &&
-                    <NavbarItem className="hidden lg:flex">
-                        <Link href="#">Statistiques</Link>
-                    </NavbarItem>
-                }
                 <NavbarItem>
-                    {props.showMyAccount &&
                         <Dropdown className="text-black">
                             <DropdownTrigger>
                                 <Button>
@@ -92,7 +86,7 @@ export default function Header(props: iHeader) {
                                     <DropdownItem
                                         key="consult"
                                         description="Mes informations"
-                                        href="/account"
+                                        href="/profil"
                                     >
                                         Mon compte
                                     </DropdownItem>
@@ -117,7 +111,6 @@ export default function Header(props: iHeader) {
                                 </DropdownSection>
                             </DropdownMenu>
                         </Dropdown>
-                    }
                 </NavbarItem>
             </NavbarContent>
             <DeleteUserModal userMail={props.user?.mail} isOpen={isDeleteModalOpen} closeModal={closeDeleteModal} />

@@ -112,7 +112,6 @@ export default function Home() {
 
   return (
     <NextUIProvider className="flex flex-col min-h-screen bg-beige">
-      <Header title="Service Commercial" showMyAccount={false} showStats={false} />
       <div className="flex-grow my-5">
         <Counter totalOrderPrice={totalOrderPrice} />
         <Table
@@ -120,7 +119,6 @@ export default function Home() {
           actionButtons={[]}
         />
       </div>
-      <Footer />
     </NextUIProvider>
   );
 }

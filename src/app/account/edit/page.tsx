@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, ChangeEvent } from "react";
-import { useRouter } from "next/router";
 import {
   NextUIProvider,
   Card,

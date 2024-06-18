@@ -52,7 +52,6 @@ export default function Home() {
 
   return (
     <NextUIProvider className="flex flex-col min-h-screen bg-beige">
-      <Header title="Service Commercial" showMyAccount={true} showStats={false}/>
       <div className="grid grid-cols-1 md:grid-cols-4 flex-grow place-content-center items-center h-80">
         <div className="col-span-1"></div>
         <div>
@@ -62,7 +61,6 @@ export default function Home() {
           <CustomCard title="Dashboard" href="/dashboard" btnText="Accéder" icon={<FaChartColumn className="w-12 h-12 xl:w-20 xl:h-20" />} />
         </div>
       </div>
-      <Footer />
     </NextUIProvider>
   );
 }
