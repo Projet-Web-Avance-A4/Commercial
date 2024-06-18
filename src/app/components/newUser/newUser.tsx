@@ -5,7 +5,7 @@ const NewUser: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        const eventSource = new EventSource('http://localhost:3030/events');
+        const eventSource = new EventSource('http://localhost:5030/events');
 
         eventSource.onmessage = (event) => {
             setShowModal(true);
