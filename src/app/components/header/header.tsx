@@ -30,6 +30,7 @@ export default function Header(props: iHeader) {
         closeSponsorModal } = useModal();
 
         const [user, setUser] = useState<User | null>(null);
+        const appRole = process.env.NEXT_PUBLIC_APP;
 
         useEffect(() => {
             const accessToken = localStorage.getItem('accessToken');
@@ -70,7 +71,7 @@ export default function Header(props: iHeader) {
                 </Link>
             </NavbarBrand>
             <NavbarContent justify="center">
-                <p>{user?.role || "CES'Eat"}</p>
+                <p>{user?.role || appRole}</p>
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
