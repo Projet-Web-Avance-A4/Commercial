@@ -1,12 +1,12 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/system";
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
 import CustomCard from "../components/customcard/customcard";
-import Notification from "../components/notification/notification";
 import { useState, useEffect } from 'react';
 import { FaUserLarge, FaChartColumn } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';
+import { useHeader } from '../hooks/useHeader';
+import { decodeAccessToken} from './utils';
 
 const notificationsConfig = [
   {
@@ -25,8 +25,39 @@ const notificationsConfig = [
 
 export default function Home() {
   const [modals, setModals] = useState<{ [key: string]: boolean }>({});
+  const { user, setUser, setShowMyAccount, setShowStats, setShowSponsor } = useHeader();
 
-  useEffect(() => {
+  
+const router = useRouter();
+
+
+useEffect(() => {
+  const setInHeader = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error("Token non trouvé");
+      }
+
+      const userData = await decodeAccessToken(accessToken);
+      setUser(userData);
+
+      if (userData) {
+        setShowMyAccount(true);
+        setShowStats(true);
+        setShowSponsor(true);
+      } else {
+        throw new Error("Utilisateur non connecté");
+      }
+    } catch (error) {
+      router.push('/');
+    }
+  };
+
+  setInHeader();
+}, []);
+
+/*   useEffect(() => {
     const intervals = notificationsConfig.map(notification => {
       const interval = setInterval(() => {
         setModals(prevModals => ({ ...prevModals, [notification.id]: true }));
@@ -41,15 +72,7 @@ export default function Home() {
       intervals.forEach(clearInterval);
     };
   }, []);
-
-  const openModal = (id: any) => {
-    setModals(prevModals => ({ ...prevModals, [id]: true }));
-  };
-
-  const closeModal = (id: any) => {
-    setModals(prevModals => ({ ...prevModals, [id]: false }));
-  };
-
+ */
   return (
     <NextUIProvider className="flex flex-col min-h-screen bg-beige">
       <div className="grid grid-cols-1 md:grid-cols-4 flex-grow place-content-center items-center h-80">

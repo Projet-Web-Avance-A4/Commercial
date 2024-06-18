@@ -1,22 +1,49 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/system";
-import Header from "../components/header/header";
 import Table from "../components/table/table";
 import Counter from '../components/counter/counter';
-import Footer from "../components/footer/footer";
 import { useState, useEffect } from 'react';
 import { Order } from '../types/order';
 import { Options } from "../interfaces/table";
 import { propsTable } from "@/app/interfaces/table";
-import deleteUserButton from "../components/actionButtonTable/deleteUserButton";
-import editUserButton from "../components/actionButtonTable/editUserButton";
-import switchUserState from "../components/actionButtonTable/switchStateButton";
+import { useHeader } from '../hooks/useHeader';
+import { useRouter } from 'next/navigation';
+import { decodeAccessToken} from './utils';
 
 export default function Home() {
   const [ordersList, setOrdersList] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const { user, setUser, setShowMyAccount, setShowStats, setShowSponsor } = useHeader();
+  const router = useRouter();
+  
+  
+  useEffect(() => {
+    const setInHeader = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error("Token non trouvé");
+        }
+  
+        const userData = await decodeAccessToken(accessToken);
+        setUser(userData);
+  
+        if (userData) {
+          setShowMyAccount(true);
+          setShowStats(true);
+          setShowSponsor(true);
+        } else {
+          throw new Error("Utilisateur non connecté");
+        }
+      } catch (error) {
+        router.push('/');
+      }
+    };
+  
+    setInHeader();
+  }, []);
 
   useEffect(() => {
     const fetchOrders = async () => {

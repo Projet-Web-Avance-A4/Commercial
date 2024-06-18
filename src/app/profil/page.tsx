@@ -8,6 +8,7 @@ import { isUserDataValid, handleTokenVerification, handleInputChange, sendModifi
 import { useHeader } from '../hooks/useHeader';
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { useRouter } from 'next/navigation';
 
 export default function AccountInfo() {
     const { user, setUser, setShowMyAccount, setShowSponsor, setShowStats } = useHeader();
@@ -20,12 +21,21 @@ export default function AccountInfo() {
     const [alertType, setAlertType] = useState<'success' | 'error'>('success');
     const [isDataDisabled, setIsDataDisabled] = useState(true);
     const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
-        handleTokenVerification(setUser);
-        setShowMyAccount(true);
-        setShowSponsor(true);
-        setShowStats(true);
+        const getUser = async () => {
+            const token = await handleTokenVerification(setUser);
+            if (token) {
+                setShowMyAccount(true);
+                setShowSponsor(true);
+                setShowStats(true);
+            } else {
+                router.push('/');
+            }
+        }
+
+        getUser();
     }, []);
 
     useEffect(() => {

@@ -62,6 +62,7 @@ export const handleTokenVerification = (setUser: (user: User) => void) => {
 
     try {
         verifyAndSetUser(accessToken, setUser);
+        return accessToken;
     } catch (error: any) {
         if (error.name === 'TokenExpiredError' && refreshToken) {
             try {
@@ -69,6 +70,7 @@ export const handleTokenVerification = (setUser: (user: User) => void) => {
                 if (typeof newAccessToken === 'string') {
                     accessToken = newAccessToken;
                     verifyAndSetUser(accessToken, setUser);
+                    return accessToken;
                 }
             } catch (refreshError) {
                 console.error('Failed to refresh access token:', refreshError);
