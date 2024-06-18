@@ -55,10 +55,10 @@ export default function Home() {
   ));
 
   const columns = [
-    { name: "Nom", uid: "name" },
-    { name: "Prénom", uid: "surname" },
-    { name: "Rôle", uid: "role" },
-    { name: "Status", uid: "status" },
+    { name: "Nom", uid: "name",sortable: true },
+    { name: "Prénom", uid: "surname", sortable: true },
+    { name: "Rôle", uid: "role", sortable: true },
+    { name: "Status", uid: "status", sortable: true },
     { name: "Actions", uid: "actions" },
   ];
 

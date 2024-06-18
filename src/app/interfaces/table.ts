@@ -12,7 +12,7 @@ export interface Options {
 }
 
 export interface propsTable {
-    columns: { name: string; uid: string }[];
+    columns: { name: string; uid: string; sortable?: boolean  }[];
     options: Options
     items: any[];
     INITIAL_VISIBLE_COLUMNS: string[];
