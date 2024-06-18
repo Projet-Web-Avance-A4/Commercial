@@ -1,12 +1,9 @@
-"use client";
-
 import React, { useState } from 'react';
 import { Alert } from '@mui/material';
 import { Input, Spacer, Button, Card, CardHeader, CardBody, Tooltip } from '@nextui-org/react';
 import { EyeFilledIcon } from "../../../../public/icons/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../../../public/icons/EyeSlashFilledIcon";
 import { FaUserPlus, FaReply } from "react-icons/fa6";
-import { NextUIProvider } from '@nextui-org/system';
 import { generate, toggleVisibility, useFormValidation, handleSubmit } from './utils';
 
 const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
@@ -54,7 +51,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                 </CardHeader>
                 <CardBody>
                     <form onSubmit={onSubmit} className="grid grid-flow-row-dense auto-cols-max grid-cols-6 gap-5 p-3">
-                        <div className='col-span-3'>
+                        <div className='md:col-span-3 col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -65,7 +62,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
-                        <div className='col-span-3'>
+                        <div className='md:col-span-3 col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -76,7 +73,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setSurname(e.target.value)}
                             />
                         </div>
-                        <div className='col-span-4'>
+                        <div className='md:col-span-4 col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -87,7 +84,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setMail(e.target.value)}
                             />
                         </div>
-                        <div className='col-span-2'>
+                        <div className='md:col-span-2 col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -98,7 +95,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setPhone(e.target.value)}
                             />
                         </div>
-                        <div className='col-span-6'>
+                        <div className='col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -109,7 +106,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setStreet(e.target.value)}
                             />
                         </div>
-                        <div className='col-span-4'>
+                        <div className='md:col-span-4 col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -121,7 +118,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                             />
                         </div>
 
-                        <div className='col-span-2'>
+                        <div className='md:col-span-2 col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired
@@ -132,7 +129,7 @@ const RegisterForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setPostalCode(e.target.value)}
                             />
                         </div>
-                        <div className='col-span-6'>
+                        <div className='col-span-full'>
                             <Input
                                 className='text-black'
                                 isRequired

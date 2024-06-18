@@ -43,7 +43,7 @@ const ConnectionForm: React.FC<{ changeForm: () => void }> = (props) => {
                 </CardHeader>
                 <CardBody>
                     <form onSubmit={onSubmit} className="flex flex-col items-center gap-5 p-3">
-                        <div className='w-8/12 mx-auto'>
+                        <div className='w-full md:w-8/12 mx-auto'>
                             <Input
                                 className='text-black w-full'
                                 isRequired
@@ -54,7 +54,7 @@ const ConnectionForm: React.FC<{ changeForm: () => void }> = (props) => {
                                 onChange={(e) => setMail(e.target.value)}
                             />
                         </div>
-                        <div className='w-8/12 mx-auto'>
+                        <div className='w-full md:w-8/12 mx-auto'>
                             <Input
                                 className='text-black w-full'
                                 isRequired
@@ -76,13 +76,13 @@ const ConnectionForm: React.FC<{ changeForm: () => void }> = (props) => {
                             />
                         </div>
                         <Spacer y={1.5} />
-                        <div className="grid grid-cols-1 md:flex md:flex-col md:space-y-4">
-                            <div className="col-span-1 justify-self-center">
+                        <div className="grid grid-cols-1 md:flex md:flex-col space-y-4">
+                            <div className="col-span-full md:col-span-1 justify-self-center">
                                 <Button type="submit" isDisabled={isDisabled} className="w-full bg-beige shadow min-w-[150px]">
                                     {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
                                 </Button>
                             </div>
-                            <div className="col-span-1 justify-self-center">
+                            <div className="col-span-full md:col-span-1 justify-self-center">
                                 <Button type="button" variant='ghost' onClick={props.changeForm} className="w-full">
                                     Créer un compte
                                 </Button>
