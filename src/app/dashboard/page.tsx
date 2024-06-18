@@ -80,13 +80,13 @@ export default function Home() {
   }));
 
   const columns = [
-    { name: "Client", uid: "customer_name" },
-    { name: "Commande", uid: "order" },
-    { name: "Restaurant", uid: "restaurant_name" },
-    { name: "Livreur", uid: "driver_name" },
-    { name: "Ville", uid: "city" },
-    { name: "Prix", uid: "price" },
-    { name: "Status", uid: "order_status" }, 
+    { name: "Client", uid: "customer_name", sortable: true },
+    { name: "Commande", uid: "order", sortable: true },
+    { name: "Restaurant", uid: "restaurant_name", sortable: true },
+    { name: "Livreur", uid: "driver_name", sortable: true },
+    { name: "Ville", uid: "city", sortable: true },
+    { name: "Prix", uid: "price", sortable: true },
+    { name: "Status", uid: "order_status", sortable: true }, 
   ];
 
   const options: Options = {
