@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface iPortalCard {
     btnText: string;
     href: string;
@@ -9,7 +11,7 @@ export interface iCustomCard {
     description?: string;
     href?: string;
     btnText?: string;
-    onClick?: () => void;
+    icon?: ReactNode
 }
 
 export interface ComponentListProps {

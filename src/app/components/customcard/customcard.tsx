@@ -4,14 +4,7 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import Link from "next/link";
 import { ReactNode } from "react";
 import React from "react";
-
-interface iCustomCard {
-  title: string
-  description?: string
-  href: string
-  btnText: string
-  icon?: ReactNode
-}
+import { iCustomCard } from "@/app/interfaces/card";
 
 export default function CustomCard(props: iCustomCard) {
 
