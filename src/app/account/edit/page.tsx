@@ -15,18 +15,14 @@ import { Alert } from "@mui/material";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import { User, fieldLabels } from "../../interfaces/user";
-import {
-  isUserDataValid,
-  handleInputChange,
-  sendModifiedData,
-  sendModifiedPassword,
-} from "./utils";
+import { useRouter } from 'next/navigation';
+import { isUserDataValid, handleTokenVerification, handleInputChange, sendModifiedData, sendModifiedPassword } from "./utils";
+import { useHeader } from '../../hooks/useHeader';
 
 export default function AccountInfo(user_id: any) {
 
   const  { id }  = user_id.searchParams;
-
-  const [user, setUser] = useState<User | null>(null);
+  const { user, setUser, setShowMyAccount, setShowSponsor, setShowStats } = useHeader();
   const [isEditing, setIsEditing] = useState(false);
   const [modifiedUser, setModifiedUser] = useState<User | null>(null);
   const [oldPassword, setOldPassword] = useState("");
@@ -36,6 +32,22 @@ export default function AccountInfo(user_id: any) {
   const [alertType, setAlertType] = useState<'success' | 'error'>('success');
   const [isDataDisabled, setIsDataDisabled] = useState(true);
   const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+      const getUser = async () => {
+          const token = await handleTokenVerification(setUser);
+          if (token) {
+              setShowMyAccount(true);
+              setShowSponsor(true);
+              setShowStats(true);
+          } else {
+              router.push('/');
+          }
+      }
+
+      getUser();
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -104,7 +116,6 @@ export default function AccountInfo(user_id: any) {
 
   return (
     <NextUIProvider className="min-h-screen bg-beige flex flex-col justify-between">
-      <Header user={user} showMyAccount={true} showStats={true} />
       <div className="flex flex-grow justify-center items-center">
         <div className="container mx-auto p-4 md:p-0">
           <div className="md:flex justify-center">
@@ -290,7 +301,6 @@ export default function AccountInfo(user_id: any) {
           </div>
         </div>
       </div>
-      <Footer />
     </NextUIProvider>
   );
 }

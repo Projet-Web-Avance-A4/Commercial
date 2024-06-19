@@ -3,6 +3,26 @@ import { User } from "../../interfaces/user";
 import { ChangeEvent } from "react";
 
 
+export const generateNewAccessToken = (refreshToken: string) => {
+    try {
+        const secretAccess = process.env.NEXT_PUBLIC_ACCESS_SECRET_KEY || '';
+        const secretRefresh = process.env.NEXT_PUBLIC_REFRESH_SECRET_KEY || '';
+        const decoded = jwt.verify(refreshToken, secretRefresh);
+        if (typeof decoded === 'object' && decoded !== null) {
+            const data: JwtPayload = decoded as jwt.JwtPayload;
+            const newAccessToken = jwt.sign({ ...data }, secretAccess);
+            localStorage.setItem('accessToken', newAccessToken);
+            return newAccessToken;
+        } else {
+            console.error('decoded n\'est pas un objet JwtPayload');
+        }
+    } catch (error) {
+        console.error('Error generating new access token:', error);
+        throw error;
+    }
+};
+
+
 export const verifyAndSetUser = (accessToken: string, setUser: (user: User) => void) => {
     try {
         const verifiedData = jwt.verify(accessToken, 'access_secret_jwt');
@@ -57,6 +77,35 @@ export const handleInputChange = (
         });
     }
 };
+
+export const handleTokenVerification = (setUser: (user: User) => void) => {
+    let accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (!accessToken) {
+        console.error('No access token found in localStorage.');
+        return;
+    }
+
+    try {
+        verifyAndSetUser(accessToken, setUser);
+        return accessToken;
+    } catch (error: any) {
+        if (error.name === 'TokenExpiredError' && refreshToken) {
+            try {
+                const newAccessToken = generateNewAccessToken(refreshToken);
+                if (typeof newAccessToken === 'string') {
+                    accessToken = newAccessToken;
+                    verifyAndSetUser(accessToken, setUser);
+                    return accessToken;
+                }
+            } catch (refreshError) {
+                console.error('Failed to refresh access token:', refreshError);
+            }
+        }
+    }
+};
+
 
 export const sendModifiedData = async (
     modifiedUser: User | null,
