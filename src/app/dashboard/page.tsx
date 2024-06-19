@@ -138,13 +138,15 @@ export default function Home() {
   };
 
   return (
+    <>
       <div className="flex-grow my-5">
         <Counter totalOrderPrice={totalOrderPrice} />
         <Table
           props={props}
           actionButtons={[]}
         />
-        <NotificationNewUser />
       </div>
+      <NotificationNewUser />
+    </>
   );
 }

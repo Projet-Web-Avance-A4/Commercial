@@ -43,7 +43,7 @@ useEffect(() => {
 }, []);
 
   return (
-      <div className="grid grid-cols-1 lg:grid-cols-4 flex-grow place-content-center items-center  mt-16">
+      <div className="grid grid-cols-1 lg:grid-cols-4 flex-grow place-content-center items-center  lg:mt-16">
         <div className="col-span-1"></div>
         <div>
           <CustomCard title="Clients" href="/clients" btnText="Accéder" icon={<FaUserLarge className="w-12 h-12 xl:w-20 xl:h-20" />} />
