@@ -93,13 +93,13 @@ export default function Header(props: iHeader) {
                                     >
                                         Mon compte
                                     </DropdownItem>
-                                    <DropdownItem
+{/*                                     <DropdownItem
                                          key="sponsor"
                                          onClick={openSponsorModal}
                                          className="cursor-pointer text-blue-500 mr-2"
                                     >
                                         Parrainage
-                                    </DropdownItem>
+                                    </DropdownItem> */}
                                 </DropdownSection>
                                 <DropdownSection title="Danger">
                                     <DropdownItem

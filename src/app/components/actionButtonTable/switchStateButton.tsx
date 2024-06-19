@@ -1,7 +1,7 @@
 import React from "react";
 import { useSwitch, VisuallyHidden } from "@nextui-org/react";
 import { FaRegCircleDot, FaRegCircle } from "react-icons/fa6";
-import { NextUIProvider, Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@nextui-org/react";
 import { ThemeSwitchProps } from "../../interfaces/themeSwitch";
 
 const switchUserState = (item: any) => {
@@ -49,7 +49,6 @@ const switchUserState = (item: any) => {
     };
 
     return (
-      <NextUIProvider>
         <Tooltip className="text-black" content="Changer état">
           <div className="flex flex-col gap-2">
             <Component {...getBaseProps()} onClick={handleChangeStatus}>
@@ -71,7 +70,6 @@ const switchUserState = (item: any) => {
             </Component>
           </div>
         </Tooltip>
-      </NextUIProvider>
     );
   };
 

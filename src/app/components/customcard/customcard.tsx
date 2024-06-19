@@ -1,5 +1,4 @@
 import { Button } from "@nextui-org/button";
-import { NextUIProvider } from "@nextui-org/react";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -9,7 +8,6 @@ import { iCustomCard } from "@/app/interfaces/card";
 export default function CustomCard(props: iCustomCard) {
 
     return (
-        <NextUIProvider>
             <Card className="m-8 h-46">
               <CardHeader className="pb-0 pt-2 px-4 flex-col items-start h-30">
                 <div>
@@ -23,6 +21,5 @@ export default function CustomCard(props: iCustomCard) {
                 </Button>
               </CardBody>
             </Card>
-        </NextUIProvider>
     );
 }

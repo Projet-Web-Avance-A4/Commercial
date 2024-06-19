@@ -1,6 +1,5 @@
 "use client";
 
-import { NextUIProvider } from "@nextui-org/system";
 import Table from "../components/table/table";
 import Counter from '../components/counter/counter';
 import Footer from "../components/footer/footer";
@@ -139,7 +138,7 @@ export default function Home() {
   };
 
   return (
-    <NextUIProvider className="flex flex-col min-h-screen bg-beige">
+    <>
       <div className="flex-grow my-5">
         <Counter totalOrderPrice={totalOrderPrice} />
         <Table
@@ -148,6 +147,6 @@ export default function Home() {
         />
       </div>
       <NotificationNewUser />
-    </NextUIProvider>
+    </>
   );
 }
