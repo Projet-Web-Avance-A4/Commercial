@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, ChangeEvent } from "react";
 import {
-  NextUIProvider,
   Card,
   CardBody,
   CardHeader,
@@ -12,8 +11,6 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { Alert } from "@mui/material";
-import Header from "../../components/header/header";
-import Footer from "../../components/footer/footer";
 import { User, fieldLabels } from "../../interfaces/user";
 import { useRouter } from 'next/navigation';
 import { isUserDataValid, handleTokenVerification, handleInputChange, sendModifiedData, sendModifiedPassword } from "./utils";
@@ -115,9 +112,8 @@ export default function AccountInfo(user_id: any) {
 
 
   return (
-    <NextUIProvider className="min-h-screen bg-beige flex flex-col justify-between">
-      <div className="flex flex-grow justify-center items-center">
-        <div className="container mx-auto p-4 md:p-0">
+      <div className="flex flex-grow justify-center items-center ">
+        <div className="container mx-auto p-4 md:p-0 mt-6">
           <div className="md:flex justify-center">
             <Card className="md:mr-4 mb-4 md:mb-0 w-full md:w-auto flex-grow max-w-3xl">
               <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -301,6 +297,5 @@ export default function AccountInfo(user_id: any) {
           </div>
         </div>
       </div>
-    </NextUIProvider>
   );
 }
