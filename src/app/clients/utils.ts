@@ -13,7 +13,8 @@ export const decodeAccessToken = (accessToken: string | null) => {
                 postal_code: data.postal_code ?? '',
                 phone: data.phone ?? '',
                 mail: data.mail ?? '',
-                role: data.role ?? ''
+                role: data.role ?? '',
+                code_referral: data.code_referral ?? '',
             };
             return userData;
         }
