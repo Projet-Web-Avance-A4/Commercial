@@ -24,8 +24,13 @@ export type Address = {
     menu_id?: number;
     drink_id?: number;
     dessert_id?: number;
-    name: string;
-    price: number;
+    name_menu?: string;
+    name_article?: string;
+    id_dish?: number;
+    category?: number;
+    id_restorer: number
+    price_menu?: number;
+    price_article?: number;
   };
   
   export type Payment = {
@@ -52,6 +57,6 @@ export type Address = {
     estimated_delivery_time: Date;
     payment: Payment;
     driver: Driver;
-    price: number;
+    total_price: number;
   };
   

@@ -70,7 +70,7 @@ export default function Home() {
 
   const totalOrderPrice = ordersList.reduce((total, order) => {
     if (order.order_status !== "delivered") {
-      total += order.price;
+      total += order.total_price;
     }
     return total;
   }, 0);
@@ -98,11 +98,15 @@ export default function Home() {
   const items = ordersList.map((order) => ({
     id: order.order_id, 
     customer_name: order.customer.name,
-    order: order.items.map(item => `${item.name}`).join(', '),
+   order : order.items
+      .map((commande) => {
+        return (commande.name_article|| commande.name_menu);
+      })
+      .join(", "),
     restaurant_name: order.restaurant.name,
     driver_name: order.driver.name,
     city: order.customer.address.city,
-    price: order.price,
+    price: order.total_price,
     order_status: order.order_status,
   }));
 
