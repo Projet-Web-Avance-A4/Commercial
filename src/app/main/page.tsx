@@ -1,68 +1,57 @@
 "use client";
-
-import { NextUIProvider } from "@nextui-org/system";
-import Header from "../components/header/header";
-import Footer from "../components/footer/footer";
+import React from 'react';
+import NotificationNewUser from '../components/newUser/newUser';
 import CustomCard from "../components/customcard/customcard";
-import Notification from "../components/notification/notification";
 import { useState, useEffect } from 'react';
 import { FaUserLarge, FaChartColumn } from 'react-icons/fa6';
-
-const notificationsConfig = [
-  {
-    id: 'notification1',
-    title: 'Nouvelle notification',
-    description: 'Une nouvelle mise à jour est disponible !',
-    interval: 10000,
-  },
-  {
-    id: 'notification2',
-    title: 'Nouvelle commande en cours',
-    description: 'Une nouvelle livraison est en cours !',
-    interval: 15000,
-  }
-];
+import { useRouter } from 'next/navigation';
+import { useHeader } from '../hooks/useHeader';
+import { decodeAccessToken} from './utils';
 
 export default function Home() {
   const [modals, setModals] = useState<{ [key: string]: boolean }>({});
+  const { user, setUser, setShowMyAccount, setShowStats, setShowSponsor } = useHeader();
 
-  useEffect(() => {
-    const intervals = notificationsConfig.map(notification => {
-      const interval = setInterval(() => {
-        setModals(prevModals => ({ ...prevModals, [notification.id]: true }));
-        setTimeout(() => {
-          setModals(prevModals => ({ ...prevModals, [notification.id]: false }));
-        }, 3000); // Ferme la modal après 3 secondes
-      }, notification.interval);
-      return interval;
-    });
+  
+const router = useRouter();
 
-    return () => {
-      intervals.forEach(clearInterval);
-    };
-  }, []);
 
-  const openModal = (id: any) => {
-    setModals(prevModals => ({ ...prevModals, [id]: true }));
+useEffect(() => {
+  const setInHeader = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error("Token non trouvé");
+      }
+
+      const userData = await decodeAccessToken(accessToken);
+      setUser(userData);
+
+      if (userData) {
+        setShowMyAccount(true);
+        setShowStats(true);
+        setShowSponsor(true);
+      } else {
+        throw new Error("Utilisateur non connecté");
+      }
+    } catch (error) {
+      router.push('/');
+    }
   };
 
-  const closeModal = (id: any) => {
-    setModals(prevModals => ({ ...prevModals, [id]: false }));
-  };
+  setInHeader();
+}, []);
 
   return (
-    <NextUIProvider className="flex flex-col min-h-screen bg-beige">
-      <Header title="Service Commercial" showMyAccount={true} showStats={false}/>
-      <div className="grid grid-cols-4 flex-grow place-content-center items-center h-80">
+      <div className="grid grid-cols-1 lg:grid-cols-4 flex-grow place-content-center items-center  lg:mt-16">
         <div className="col-span-1"></div>
         <div>
-          <CustomCard title="Clients" href="/clients" btnText="Accéder" icon={<FaUserLarge className="w-24 h-24" />} />
+          <CustomCard title="Clients" href="/clients" btnText="Accéder" icon={<FaUserLarge className="w-12 h-12 xl:w-20 xl:h-20" />} />
         </div>
         <div>
-          <CustomCard title="Dashboard" href="/dashboard" btnText="Accéder" icon={<FaChartColumn className="w-24 h-24" />} />
+          <CustomCard title="Dashboard" href="/dashboard" btnText="Accéder" icon={<FaChartColumn className="w-12 h-12 xl:w-20 xl:h-20" />} />
         </div>
+        <NotificationNewUser />
       </div>
-      <Footer />
-    </NextUIProvider>
   );
 }

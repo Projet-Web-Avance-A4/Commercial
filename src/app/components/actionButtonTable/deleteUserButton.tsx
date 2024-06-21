@@ -1,23 +1,38 @@
 import React from "react";
-import {
-  Button,
-  NextUIProvider,
-  Tooltip,
-} from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import { FaTrashCan } from "react-icons/fa6";
 
-function test() {
-    console.log("test button")
-}
+const DeleteUserButton = (item: any) => {
 
-export default function deleteUserButton() {
+  const itemId = item.id;
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/client/deleteClient`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({itemId})
+      });
+      if (response.ok) {
+        console.error('User deleted');
+        window.location.reload();
+      } else {
+        console.error('Failed to delete user');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <NextUIProvider>
       <Tooltip className="text-black" content="Supprimer">
-        <Button isIconOnly radius="full" size="sm" variant="light" onClick={test}>
+        <Button isIconOnly radius="full" size="sm" variant="light" onClick={handleDelete}>
           <FaTrashCan className="text-default-400 text-red" />
         </Button>
       </Tooltip>
-    </NextUIProvider> 
   );
 };
+
+export default DeleteUserButton;

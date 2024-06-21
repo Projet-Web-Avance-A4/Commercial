@@ -1,34 +1,61 @@
 "use client";
 
-import { NextUIProvider } from "@nextui-org/system";
-import Header from "../components/header/header";
 import Table from "../components/table/table";
 import Counter from '../components/counter/counter';
 import Footer from "../components/footer/footer";
+import NotificationNewUser from '../components/newUser/newUser';
 import { useState, useEffect } from 'react';
 import { Order } from '../types/order';
 import { Options } from "../interfaces/table";
 import { propsTable } from "@/app/interfaces/table";
-import deleteUserButton from "../components/actionButtonTable/deleteUserButton";
-import editUserButton from "../components/actionButtonTable/editUserButton";
-import switchUserState from "../components/actionButtonTable/switchStateButton";
+import { useHeader } from '../hooks/useHeader';
+import { useRouter } from 'next/navigation';
+import { decodeAccessToken} from './utils';
 
 export default function Home() {
   const [ordersList, setOrdersList] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const { user, setUser, setShowMyAccount, setShowStats, setShowSponsor } = useHeader();
+  const router = useRouter();
+  
+  
+  useEffect(() => {
+    const setInHeader = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error("Token non trouvé");
+        }
+  
+        const userData = await decodeAccessToken(accessToken);
+        setUser(userData);
+  
+        if (userData) {
+          setShowMyAccount(true);
+          setShowStats(true);
+          setShowSponsor(true);
+        } else {
+          throw new Error("Utilisateur non connecté");
+        }
+      } catch (error) {
+        router.push('/');
+      }
+    };
+  
+    setInHeader();
+  }, []);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/order/getOrders', {
+        const response = await fetch('http://localhost:4000/order/getOrders', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
           },
         });
         const data = await response.json();
-        console.log(data);
         const filteredOrders = data.filter((order: Order) => order.order_status !== "done");
         setOrdersList(filteredOrders);
       } catch (err) {
@@ -80,13 +107,13 @@ export default function Home() {
   }));
 
   const columns = [
-    { name: "Client", uid: "customer_name" },
-    { name: "Commande", uid: "order" },
-    { name: "Restaurant", uid: "restaurant_name" },
-    { name: "Livreur", uid: "driver_name" },
-    { name: "Ville", uid: "city" },
-    { name: "Prix", uid: "price" },
-    { name: "Status", uid: "order_status" }, 
+    { name: "Client", uid: "customer_name", sortable: true },
+    { name: "Commande", uid: "order", sortable: true },
+    { name: "Restaurant", uid: "restaurant_name", sortable: true },
+    { name: "Livreur", uid: "driver_name", sortable: true },
+    { name: "Ville", uid: "city", sortable: true },
+    { name: "Prix", uid: "price", sortable: true },
+    { name: "Status", uid: "order_status", sortable: true }, 
   ];
 
   const options: Options = {
@@ -111,8 +138,7 @@ export default function Home() {
   };
 
   return (
-    <NextUIProvider className="flex flex-col min-h-screen bg-beige">
-      <Header title="Service Commercial" showMyAccount={false} showStats={false} />
+    <>
       <div className="flex-grow my-5">
         <Counter totalOrderPrice={totalOrderPrice} />
         <Table
@@ -120,7 +146,7 @@ export default function Home() {
           actionButtons={[]}
         />
       </div>
-      <Footer />
-    </NextUIProvider>
+      <NotificationNewUser />
+    </>
   );
 }
